@@ -21,13 +21,9 @@ public class ImgDoc {
         Graphics2D graphics2D = img.createGraphics();
         Font font = new Font("Arial", Font.PLAIN, 45);
         graphics2D.setFont(font);
-        FontMetrics fontMetrics = graphics2D.getFontMetrics();
 
-        int width = obj.getDeclaredMethods().length * 350;
-        int height = fontMetrics.getHeight() * 100;
-
-        // possible error
-        graphics2D.dispose();
+        int width = 1200;
+        int height = obj.getDeclaredMethods().length * 400;
 
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         graphics2D = img.createGraphics();
@@ -43,7 +39,7 @@ public class ImgDoc {
         graphics2D.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
         graphics2D.setFont(font);
 
-        fontMetrics = graphics2D.getFontMetrics();
+        FontMetrics fontMetrics = graphics2D.getFontMetrics();
 
         // To have white background
         graphics2D.setColor(Color.WHITE);
@@ -97,7 +93,7 @@ public class ImgDoc {
                 }
 
                 graphics2D.setColor(Color.BLACK);
-                graphics2D.drawString(method.getName() + "()", fontX, yCordsOfFont.get(0));
+                graphics2D.drawString(yCordsOfFont.get(0) + " : " + method.getName() + "()", fontX, yCordsOfFont.get(0));
 
                 font = new Font("Arial", Font.PLAIN, 24);
                 graphics2D.setFont(font);
@@ -107,9 +103,40 @@ public class ImgDoc {
 
                 graphics2D.drawString(drawAnnotation.author(), fontX, yCordsOfFont.get(2));
                 graphics2D.drawString(drawAnnotation.version(), fontX, yCordsOfFont.get(3));
-                graphics2D.drawString(drawAnnotation.description(), fontX, yCordsOfFont.get(4));
 
-                if (splitter % 2 != 0) {
+                boolean areCordsUpdated = false;
+
+                if (drawAnnotation.description().length() >= 50) {
+                    List<String> subStrings = new ArrayList<>();
+                    int endIndex = 50;
+
+                    for (int i = 0; i < drawAnnotation.description().length() / 50; ++i) {
+                        subStrings.add(drawAnnotation.description().substring(endIndex - 50, endIndex));
+                        endIndex += 50;
+                    }
+
+                    graphics2D.drawString(yCordsOfFont.get(4) + ": " + subStrings.get(0), fontX, yCordsOfFont.get(4));
+
+                    int tempYCords = yCordsOfFont.get(4);
+                    for (String text : subStrings) {
+                        graphics2D.drawString(tempYCords + ": " + text, fontX, tempYCords);
+                        tempYCords += graphics2D.getFontMetrics().getHeight();
+                    }
+
+                    if (splitter % 2 != 0) {
+                        yCordsOfFont.set(0, tempYCords + 20);
+                        for (int i = 1; i <= 4; ++i) {
+                            yCordsOfFont.set(i, yCordsOfFont.get(i) + tempYCords);
+                            System.out.println(yCordsOfFont.get(i) + " : " + tempYCords);
+                        }
+
+                        areCordsUpdated = true;
+                    }
+                } else {
+                    graphics2D.drawString(yCordsOfFont.get(4) + ": " +drawAnnotation.description(), fontX, yCordsOfFont.get(4));
+                }
+
+                if (splitter % 2 != 0 && !areCordsUpdated) {
                     yCordsOfFont.set(0, fontY += graphics2D.getFontMetrics().getHeight() + 20);
 
                     for (int i = 1; i <= 4; ++i) {

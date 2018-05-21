@@ -16,7 +16,14 @@ public class ExampleClass {
     @Draw(
             author = "Developer 2",
             version = "Base",
-            description = "This method does something"
+            description = "Sed quis volutpat tellus. Vivamus aliquam pharetra nibh quis tincidunt. " +
+                    "Vestibulum id vehicula lacus, sed efficitur leo. Donec nec ex ipsum. " +
+                    "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. " +
+                    "Nulla blandit sodales feugiat. Cras eleifend, sapien at placerat sollicitudin, nisl eros rutrum nulla, " +
+                    "lacinia ornare odio est sit amet diam. Quisque nec orci enim. Donec nec auctor odio. " +
+                    "Pellentesque id mi vitae ex faucibus ultrices in ac magna. Orci varius natoque penatibus et magnis " +
+                    "dis parturient montes, nascetur ridiculus mus. Duis ac ultrices leo. Duis consectetur nulla sed " +
+                    "tellus consequat, sed vulputate leo molestie."
     )
     private void doSomething() {
         // something
