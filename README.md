@@ -15,7 +15,16 @@ Java library which generates graphic documentation of source code.
         description = "This is example class"
 )
 public class ExampleClass {
-  //...
+
+    @Draw(
+            author = "Developer 2/Developer 3"
+            version = "0.4",
+            description = "Some description..."
+    )
+    private String returnString(String text) {
+        return text;
+    }
+    //...
 }
 ```
 
