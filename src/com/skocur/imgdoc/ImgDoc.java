@@ -85,7 +85,7 @@ public class ImgDoc {
                 }
 
                 if (splitter % 2 == 0) {
-                    yCordsOfFont.add(fontY += graphics2D.getFontMetrics().getHeight() + 20);
+                    yCordsOfFont.add(fontY += graphics2D.getFontMetrics().getHeight() + 30);
 
                     for (int i = 0; i < 4; ++i) {
                         yCordsOfFont.add(fontY += graphics2D.getFontMetrics().getHeight());
@@ -93,7 +93,7 @@ public class ImgDoc {
                 }
 
                 graphics2D.setColor(Color.BLACK);
-                graphics2D.drawString(yCordsOfFont.get(0) + " : " + method.getName() + "()", fontX, yCordsOfFont.get(0));
+                graphics2D.drawString(method.getName() + "()", fontX, yCordsOfFont.get(0));
 
                 font = new Font("Arial", Font.PLAIN, 24);
                 graphics2D.setFont(font);
@@ -115,29 +115,28 @@ public class ImgDoc {
                         endIndex += 50;
                     }
 
-                    graphics2D.drawString(yCordsOfFont.get(4) + ": " + subStrings.get(0), fontX, yCordsOfFont.get(4));
+                    graphics2D.drawString(subStrings.get(0), fontX, yCordsOfFont.get(4));
 
                     int tempYCords = yCordsOfFont.get(4);
                     for (String text : subStrings) {
-                        graphics2D.drawString(tempYCords + ": " + text, fontX, tempYCords);
+                        graphics2D.drawString(text, fontX, tempYCords);
                         tempYCords += graphics2D.getFontMetrics().getHeight();
                     }
 
                     if (splitter % 2 != 0) {
-                        yCordsOfFont.set(0, tempYCords + 20);
+                        yCordsOfFont.set(0, tempYCords + 30);
                         for (int i = 1; i <= 4; ++i) {
                             yCordsOfFont.set(i, yCordsOfFont.get(i) + tempYCords);
-                            System.out.println(yCordsOfFont.get(i) + " : " + tempYCords);
                         }
 
                         areCordsUpdated = true;
                     }
                 } else {
-                    graphics2D.drawString(yCordsOfFont.get(4) + ": " +drawAnnotation.description(), fontX, yCordsOfFont.get(4));
+                    graphics2D.drawString(drawAnnotation.description(), fontX, yCordsOfFont.get(4));
                 }
 
                 if (splitter % 2 != 0 && !areCordsUpdated) {
-                    yCordsOfFont.set(0, fontY += graphics2D.getFontMetrics().getHeight() + 20);
+                    yCordsOfFont.set(0, fontY += graphics2D.getFontMetrics().getHeight() + 30);
 
                     for (int i = 1; i <= 4; ++i) {
                         yCordsOfFont.set(i, fontY += graphics2D.getFontMetrics().getHeight());
