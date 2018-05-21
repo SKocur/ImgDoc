@@ -37,13 +37,20 @@ public class ImgDoc {
 
         graphics2D.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
                 RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics2D.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-        graphics2D.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-        graphics2D.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        graphics2D.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+                RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+        graphics2D.setRenderingHint(RenderingHints.KEY_DITHERING,
+                RenderingHints.VALUE_DITHER_ENABLE);
+        graphics2D.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
+                RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING,
+                RenderingHints.VALUE_RENDER_QUALITY);
+        graphics2D.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
         graphics2D.setFont(font);
 
         FontMetrics fontMetrics = graphics2D.getFontMetrics();
@@ -92,7 +99,7 @@ public class ImgDoc {
                 }
 
                 if (splitter % 2 == 0) {
-                    yCordsOfFont.add(fontY += graphics2D.getFontMetrics().getHeight() + 30);
+                    yCordsOfFont.add(fontY += graphics2D.getFontMetrics().getHeight());
 
                     for (int i = 0; i < 4; ++i) {
                         yCordsOfFont.add(fontY += graphics2D.getFontMetrics().getHeight());
@@ -116,13 +123,11 @@ public class ImgDoc {
                 if (drawAnnotation.description().length() >= 50) {
                     List<String> subStrings = new ArrayList<>();
                     int endIndex = 50;
-
+                    
                     for (int i = 0; i < drawAnnotation.description().length() / 50; ++i) {
                         subStrings.add(drawAnnotation.description().substring(endIndex - 50, endIndex));
                         endIndex += 50;
                     }
-
-                    graphics2D.drawString(subStrings.get(0), fontX, yCordsOfFont.get(4));
 
                     int tempYCords = yCordsOfFont.get(4);
                     for (String text : subStrings) {
@@ -139,7 +144,7 @@ public class ImgDoc {
                         areCordsUpdated = true;
                     }
                 } else {
-                    graphics2D.drawString(drawAnnotation.description(), fontX, yCordsOfFont.get(4));
+                    graphics2D.drawString(drawAnnotation.description(), fontX, yCordsOfFont.get(4) + 30);
                 }
 
                 if (splitter % 2 != 0 && !areCordsUpdated) {
@@ -164,6 +169,7 @@ public class ImgDoc {
     }
 
     public static class DocBuilder {
+
         private int tempWidth = 1000;
         private int tempHeight = 1000;
         private String tempFileName = "default.png";
