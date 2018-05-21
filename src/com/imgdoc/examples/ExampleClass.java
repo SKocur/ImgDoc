@@ -10,7 +10,12 @@ import com.skocur.imgdoc.ImgDoc;
 )
 public class ExampleClass {
     public static void main(String[] args) {
-        ImgDoc.init(ExampleClass.class, "doc_exampleClass.png");
+        ImgDoc imgDoc = new ImgDoc.DocBuilder()
+                .setPNGFileName("doc_exampleClass.png")
+                .setWidth(1400)
+                .setHeight(800)
+                .init();
+        imgDoc.draw(ExampleClass.class);
     }
 
     @Draw(

@@ -11,7 +11,12 @@ import com.skocur.imgdoc.ImgDoc;
 public class ExampleClassWithManyMethods {
 
     public static void main(String[] args) {
-        ImgDoc.init(ExampleClassWithManyMethods.class, "doc_manyMethods.png");
+        ImgDoc imgDoc = new ImgDoc.DocBuilder()
+                .setPNGFileName("doc_manyMethods.png")
+                .setWidth(1400)
+                .setHeight(1600)
+                .init();
+        imgDoc.draw(ExampleClassWithManyMethods.class);
     }
 
     @Draw(

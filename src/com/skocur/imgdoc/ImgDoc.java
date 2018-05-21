@@ -16,14 +16,21 @@ import java.util.List;
 
 public class ImgDoc {
 
-    public static void init(Class<?> obj, String fileName) {
+    private int width;
+    private int height;
+    private String fileName;
+
+    private ImgDoc(int width, int height, String fileName) {
+        this.width = width;
+        this.height = height;
+        this.fileName = fileName;
+    }
+
+    public void draw(Class<?> obj) {
         BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics2D = img.createGraphics();
         Font font = new Font("Arial", Font.PLAIN, 45);
         graphics2D.setFont(font);
-
-        int width = 1200;
-        int height = obj.getDeclaredMethods().length * 400;
 
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         graphics2D = img.createGraphics();
@@ -81,7 +88,7 @@ public class ImgDoc {
                 int fontX = 0;
 
                 if (splitter % 2 != 0) {
-                    fontX = width - (width / 3);
+                    fontX = width - (width / 2) + 20;
                 }
 
                 if (splitter % 2 == 0) {
@@ -153,6 +160,31 @@ public class ImgDoc {
             ImageIO.write(img, "png", new File(fileName));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static class DocBuilder {
+        private int tempWidth = 1000;
+        private int tempHeight = 1000;
+        private String tempFileName = "default.png";
+
+        public DocBuilder setWidth(int width) {
+            this.tempWidth = width;
+            return this;
+        }
+
+        public DocBuilder setHeight(int height) {
+            this.tempHeight = height;
+            return this;
+        }
+
+        public DocBuilder setPNGFileName(String fileName) {
+            this.tempFileName = fileName;
+            return this;
+        }
+
+        public ImgDoc init() {
+            return new ImgDoc(tempWidth, tempHeight, tempFileName);
         }
     }
 }
