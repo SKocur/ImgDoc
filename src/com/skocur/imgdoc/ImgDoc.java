@@ -14,6 +14,14 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <h1>ImgDoc</h1>
+ * Main class which is responsible for processing annotations from external classes.
+ * It has private constructor in order to prevent creating instances of this class directly.
+ * Each configuration of process takes place in DocBuilder {@link DocBuilder}.
+ *
+ * @author Szymon Kocur
+ */
 public class ImgDoc {
 
     private int width;
@@ -26,6 +34,12 @@ public class ImgDoc {
         this.fileName = fileName;
     }
 
+    /**
+     * This method is responsible for creating image (customized by DocBuilder {@link DocBuilder}) with content based on
+     * parameters passed through @Draw annotations.
+     *
+     * @param obj Class which contains Draw {@link Draw} annotations which will be processed.
+     */
     public void draw(Class<?> obj) {
         BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics2D = img.createGraphics();
@@ -62,6 +76,9 @@ public class ImgDoc {
 
         int fontY = fontMetrics.getAscent();
 
+        /**
+         * Drawing content based on class data.
+         */
         if (obj.isAnnotationPresent(Draw.class)) {
             Annotation annotation = obj.getAnnotation(Draw.class);
             Draw drawAnnotation = (Draw) annotation;
@@ -84,6 +101,9 @@ public class ImgDoc {
 
         List<Integer> yCordsOfFont = new ArrayList<>();
 
+        /**
+         * Drawing content based on methods data.
+         */
         for (Method method : obj.getDeclaredMethods()) {
             if (method.isAnnotationPresent(Draw.class)) {
                 Annotation annotation = method.getAnnotation(Draw.class);
@@ -120,10 +140,14 @@ public class ImgDoc {
 
                 boolean areCordsUpdated = false;
 
+                /**
+                 * Condition below is used to wrap long descriptions in order to keep everything clear on image.
+                 */
                 if (drawAnnotation.description().length() >= 50) {
                     List<String> subStrings = new ArrayList<>();
                     int endIndex = 50;
-                    
+
+                    System.out.println(drawAnnotation.description().length() / 50);
                     for (int i = 0; i < drawAnnotation.description().length() / 50; ++i) {
                         subStrings.add(drawAnnotation.description().substring(endIndex - 50, endIndex));
                         endIndex += 50;
@@ -168,6 +192,13 @@ public class ImgDoc {
         }
     }
 
+    /**
+     * <h1>DocBuilder</h1>
+     * This is calss based on Builder pattern. It is used to create and to configure instance of
+     * ImgDoc class.
+     *
+     * @author Szymon Kocur
+     */
     public static class DocBuilder {
 
         private int tempWidth = 1000;
