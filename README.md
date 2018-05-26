@@ -59,4 +59,7 @@ After customization invoke `init()` on it to save all settings. To generate imag
 ```Java
 ImgDoc().draw(Class<?> obj)
 ``` 
-on instance of ImgDoc class.
+on instance of ImgDoc class. Generated documentation will be saved in main directory of project with name specified in `setPNGFileName()` method.
+
+## Example output
+![Image 1](images/doc_exampleClass.png)
