@@ -1,5 +1,5 @@
 # ImgDoc
-Java library which generates graphic documentation of source code.
+Java library which generates graphic documentation/scheme of source code that is saved as a PNG image.
 
 ### Features:
 * customizable
